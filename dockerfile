@@ -9,6 +9,7 @@ RUN pip install -r /requirements-build.txt
 COPY entrypoint.sh registry-autocleaner.sh registry-job.sh /
 COPY crontab /etc/crontabs/root
 COPY supervisord.conf /etc/supervisord.conf
-RUN printf "\ndelete:\n  enabled: true\n\n" >> /etc/docker/registry/config.yml
+
+ENV REGISTRY_STORAGE_DELETE_ENABLED=true
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
